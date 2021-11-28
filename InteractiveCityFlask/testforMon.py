@@ -170,25 +170,56 @@ def inject_load():
 			return {'widthVar': widthVar}
 
 
+
+##==================================================================##
+#
+#
+#
+#
+#
+#⢀⣠⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⠀⣠⣤⣶⣶
+#⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠀⠀⠀⢰⣿⣿⣿⣿
+#⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣧⣀⣀⣾⣿⣿⣿⣿
+#⣿⣿⣿⣿⣿⡏⠉⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣿
+#⣿⣿⣿⣿⣿⣿⠀⠀⠀⠈⠛⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠿⠛⠉⠁⠀⣿
+#⣿⣿⣿⣿⣿⣿⣧⡀⠀⠀⠀⠀⠙⠿⠿⠿⠻⠿⠿⠟⠿⠛⠉⠀⠀⠀⠀⠀⣸⣿
+#⣿⣿⣿⣿⣿⣿⣿⣷⣄⠀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⣴⣿⣿
+#⣿⣿⣿⣿⣿⣿⣿⣿⣿⠏⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⣴⣿⣿⣿⣿
+#⣿⣿⣿⣿⣿⣿⣿⣿⡟⠀⠀⢰⣹⡆⠀⠀⠀⠀⠀⠀⣭⣷⠀⠀⠀⠸⣿⣿⣿⣿
+#⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠈⠉⠀⠀⠤⠄⠀⠀⠀⠉⠁⠀⠀⠀⠀⢿⣿⣿⣿
+#⣿⣿⣿⣿⣿⣿⣿⣿⢾⣿⣷⠀⠀⠀⠀⡠⠤⢄⠀⠀⠀⠠⣿⣿⣷⠀⢸⣿⣿⣿
+#⣿⣿⣿⣿⣿⣿⣿⣿⡀⠉⠀⠀⠀⠀⠀⢄⠀⢀⠀⠀⠀⠀⠉⠉⠁⠀⠀⣿⣿⣿
+#⣿⣿⣿⣿⣿⣿⣿⣿⣧⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢹⣿⣿
+#⣿⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢸⣿⣿
+#
+#
+#
+#
+#
+#
 ##=================APP ROUTES============================================##
 
 @app.route("/")
 def index():
 
-    if : # confirm button pressed 
-        pass
+    global state
 
-    elif : # a base selected with ball
-        pass
 
-    elif : # timeout after confirm, return to index
-        pass
 
-    elif : # first use or after reset
+    ##NAVIGATION
+    if state == "base1" or "base2" :
+        return redirect(url_for("question"))
+
+    elif state == "index" : 
         return render_template("index.html")
 
-    else : 
-        return render_template("index.html")
+    elif state == "reveal" :
+        return redirect(url_for("reveal"))
+
+    else: 
+        return redirect(url_for("index"))
+   
+
 
 
 ##=========================QUESTION PAGE=============================##
@@ -220,7 +251,7 @@ def question():
         oplist = listBaseTwo[0][2:12]
 
 
-  
+    ##NAVIGATION
     if state == "base1" or "base2" :
         return render_template("qtest.html", options = oplist, question = question)
 
@@ -284,7 +315,8 @@ def reveal():
 
     ##NAVIGATION
     if state == "reveal" :
-        return render_template("infoqr.html", img_data=encoded_img_data.decode('utf-8'))
+        return render_template("infoqr.html", img_data=encoded_img_data.decode('utf-8'), 
+            selectedQuestion = selectedQuestion, answer = answer, selectedAnswer = selectedAnswer)
 
     elif state == "base1" or "base2" :
         return redirect(url_for("question"))
@@ -315,8 +347,7 @@ def activate_job():
                 if ser.in_waiting > 0:
                     state = ser.readline().decode('utf-8').rstrip() #we recieve bytes to we decode to string
                     pyautogui.hotkey('f5') #refreshes page by pressing F5
-                    #update state var
-                    #pyautogui.hotkey('f5')
+
                 
 
 
