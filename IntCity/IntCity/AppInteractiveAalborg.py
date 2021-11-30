@@ -26,7 +26,7 @@ import io
 state = "index" # reveal, base1, base2, index 
 lastTouch = 0 #used for animation and for selectedAnswer
 lastTouchIndex = "" 
-selectedQuestion = ""
+question = ""
 answer = "" #float from 1 to 10 
 selectedAnswer = "" #position in cap array int from 1 to 10
 widthVar = 0
@@ -338,7 +338,7 @@ def awaitingball():
 @app.route("/question/")
 def question():
 	
-    global  selectedAnswer, answer, state, oplist, listBaseOne, listBaseTwo, questionloop, revealtext, lastTouch, region, lastTouchIndex
+    global  selectedAnswer, answer, state, oplist, listBaseOne, listBaseTwo, questionloop, revealtext, lastTouch, region, lastTouchIndex, question
     
 
     
@@ -404,15 +404,32 @@ def question():
 @app.route("/reveal/")
 def reveal():
     
-    global selectedQuestion, selectedAnswer, answer, state, revealtext,
+    global question, selectedAnswer, answer, state, revealtext, listBaseOne, listBaseTwo, questionloop
 
-    qrselectedquestion = selectedQuestion 
-    qrselectedanswer = str(selectedAnswer)
-    encodedQR = qrselectedquestion.replace(" ", "%20") 
+    encodedRevealText = revealtext.replace(" ", "%20")
+
+    if float(selectedAnswer)-float(answer) < 0 :
+        lessmore = "less"
+
+    elif float(selectedAnswer)-float(answer) > 0:
+        lessmore = "more"
+
+    elif float(selectedAnswer)-float(answer) == 0:
+        lessmore = "exactly"
+
+    else : 
+        lessmore = "error in calc answer to selectedAnswer"
+
+    
+   
 
     ##Need to use one % more at each %20 in order to escape the first %s
     ##So coloring is fucked up
-    qrlink = "https://www.aalborg.dk/51934?view=cm&68c963d3-3785-410b-bf46-294cd436ff8c=%s%%20And%%20I%%20Answered%%20:%s&fs=1.aspx" % (encodedQR, qrselectedanswer)
+    qrlink = "https://www.aalborg.dk/51934?view=cm&68c963d3-3785-410b-bf46-294cd436ff8c=%s%%20And%%20I%%20expected%%20it%%20to%%20be%s%%20%s%%20than%%20%s%%20&fs=1.aspx" % (encodedRevealText, selectedanswer, lessmore, answer)
+
+
+
+
 
 
     ##Making the qr code 
