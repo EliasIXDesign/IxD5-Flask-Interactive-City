@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Flask Test</title>
+  <style type="text/css">
+  	#Splash {
+  		margin-left: 10px;
+  	}
+  </style>
+    {{ turbo() }}
+</head>
+<body>
+	<div id="Infoqr">
+    <h1>{{ region  }}</h1>
+		<h1>{{ question }}</h1>
+    <h3>The term "electric cars" is used ____</h3><h3>{% include "selectedoption.html" %}</h3><h3>___ times:</h3>
+    <p>{{ question }}</p>
+	</div>
+	<div>
+	      {% for item in options %}
+           <center><h3>Options: {{ item }} <br> </h3></center>
+        {% endfor %}
+
+	</div>
+	<div>
+	{% include "loadcap.html" %}
+        {% block content %}{% endblock %}
+	
+	</div>
+  <div>
+  {% include "selectedoption.html" %}
+        {% block content %}{% endblock %}
+  
+  </div>
+
+
+  
+  
+
+</body>
+</html>
