@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Flask Test</title>
+  <style type="text/css">
+    #Splash {
+      margin-left: 10px;
+    }
+    table {
+      border-spacing: 65px;
+      position: absolute;
+      margin-left: 15px;
+    }
+  </style>
+    {{ turbo() }}
+</head>
+<body>
+	<div id="question">
+    <h1>{{ region  }}</h1>
+		<h1>{{ question }}</h1>
+    <h3>{% include "selectedoption.html" %}</h3><h3>___ times:</h3>
+	</div>
+	<div>
+
+	</div>
+  <div>
+  {% include "selectedoption.html" %}
+        {% block content %}{% endblock %}
+  
+  </div>
+  <div style="position:relative">
+    <img src="{{url_for('static', filename='CapTouchPNG.png')}}" width="1000" height="auto"  />
+    <table style="position:absolute;left:0;top:0;">
+      <tr>
+        {% for item in options %}
+           <td>{{ item }}</td>
+        {% endfor %}
+      </tr>
+    </table>
+
+  </div>
+
+
+  
+  
+
+</body>
+</html>

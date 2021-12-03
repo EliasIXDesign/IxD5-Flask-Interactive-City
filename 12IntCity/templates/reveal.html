@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Flask Test</title>
+  <style type="text/css">
+  	#Splash {
+  		margin-left: 10px;
+  	}
+    h3 {
+      display: inline;
+    }
+  </style>
+</head>
+<body>
+	<div id="reveal">
+		<h3>{{ revealtext }}</h3>
+    <h3>which is</h3>
+    <h3>{{ difference }}</h3>
+    <h3>{{ value }}</h3>
+    <h3>{{ lessmore }}</h3>
+    <h3>than the</h3>
+    <h3>{{ selectedAnswer }}</h3>
+    <h3>{{ value }}</h3>
+    <h3>you have chosen.</h3>
+
+
+    <img id="picture" src="data:image/jpeg;base64,{{ img_data }}">
+
+	</div>
+
+</body>
+</html>
