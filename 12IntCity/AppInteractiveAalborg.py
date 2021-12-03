@@ -214,7 +214,6 @@ def activate_job():
 
                 else: 
                     selecOp = lastTouchIndex 
-                    turbo.push(turbo.replace(render_template('loadcap.html'), 'widthVar'))
                     turbo.push(turbo.replace(render_template('selectedoption.html'), 'selecOp'))    
 
 
