@@ -23,11 +23,11 @@ import io #used to encode image and send to HTML
 
 ##===============VARIABLES==================================##
 state = "awaitingPickup" # awaitingPickup, awaitingBall, base1, base2, reveal
-lastTouchIndex = "0" 
+lastTouchIndex = "0.0" 
 question = ""
-answer = "0" #float from 1 to 10 
-selectedAnswer = "0" #position in cap array int from 1 to 10
-selecOp = 0
+answer = "0.0" #float from 1 to 10 
+selectedAnswer = "0.0" #position in cap array int from 1 to 10
+selecOp = ""
 questionloop = 0
 revealtext = ""
 region = ""
@@ -242,7 +242,6 @@ def activate_job():
 ##From flask, updates variables in a html tempalte without reloading page, used to aniamte bar 
 @app.context_processor
 def inject_load():
-    global selecOp
 
     return {'selecOp': selecOp}
 
@@ -253,7 +252,7 @@ def awaitingPickup():
 
     global state
 
-    colorWipe(strip, Color(0, 0, 255), 0) #Wipes all led for reset 
+    colorWipeAll(strip, 0) #Wipes all led for reset 
 
 
     if state == "base1" :
@@ -280,7 +279,7 @@ def awaitingBall():
 
     global state
 
-    colorWipe(strip, Color(0, 0, 255), 0) #Wipes all led for reset 
+    colorWipeAll(strip, 0) #Wipes all led for reset 
 
 
     if state == "base1" :
@@ -306,9 +305,9 @@ def awaitingBall():
 @app.route("/question/")
 def question():
 	
-    global  selectedAnswer, answer, state, oplist, listBaseOne, listBaseTwo, questionloop, revealtext, region, lastTouchIndex, question, value
+    global  selectedAnswer, answer, state, oplist, listBaseOne, listBaseTwo, questionloop, revealtext, region, lastTouchIndex, question, value, selecOp
     
-
+    selecOp = "0"
     
     ## Depending on state, select questions from base1 or base2 
     if state == "base1" : 
@@ -429,9 +428,6 @@ def reveal():
     
     encoded_img_data = base64.b64encode(data.getvalue())
 
-
-    ##
-    ##Converting selected Question, Answer to meaningful test to be displayed
 
 
 
